@@ -35,7 +35,11 @@ export default function Topbar() {
             <span className="topbarIconBadge">1</span>
           </div>
         </div>
-        <img src="/assets/person/person1.jpeg" alt="" className="topbarImg" />
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN7njwJYxu4mNe-gKO_JO2V3alorDOSGaR_Q&usqp=CAU"
+          alt=""
+          className="topbarImg"
+        />
       </div>
     </div>
   );
