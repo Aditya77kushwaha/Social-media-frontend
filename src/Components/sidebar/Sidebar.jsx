@@ -10,6 +10,8 @@ import {
   Event,
   School,
 } from "@material-ui/icons";
+import { Users } from "../../dummyData";
+import CloseFriend from "../closeFriend/CloseFriend";
 
 export default function Sidebar() {
   return (
@@ -56,62 +58,9 @@ export default function Sidebar() {
         <button className="sidebarButton">Show More</button>
         <hr className="sidebarHr" />
         <ul className="sidebarFriendList">
-          <li className="sidebarFriend">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN7njwJYxu4mNe-gKO_JO2V3alorDOSGaR_Q&usqp=CAU"
-              alt=""
-              className="sidebarFriendImg"
-            />
-            <span className="sidebarFriendName">Janit</span>
-          </li>
-          <li className="sidebarFriend">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN7njwJYxu4mNe-gKO_JO2V3alorDOSGaR_Q&usqp=CAU"
-              alt=""
-              className="sidebarFriendImg"
-            />
-            <span className="sidebarFriendName">Janit</span>
-          </li>
-          <li className="sidebarFriend">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN7njwJYxu4mNe-gKO_JO2V3alorDOSGaR_Q&usqp=CAU"
-              alt=""
-              className="sidebarFriendImg"
-            />
-            <span className="sidebarFriendName">Janit</span>
-          </li>
-          <li className="sidebarFriend">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN7njwJYxu4mNe-gKO_JO2V3alorDOSGaR_Q&usqp=CAU"
-              alt=""
-              className="sidebarFriendImg"
-            />
-            <span className="sidebarFriendName">Janit</span>
-          </li>
-          <li className="sidebarFriend">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN7njwJYxu4mNe-gKO_JO2V3alorDOSGaR_Q&usqp=CAU"
-              alt=""
-              className="sidebarFriendImg"
-            />
-            <span className="sidebarFriendName">Janit</span>
-          </li>
-          <li className="sidebarFriend">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN7njwJYxu4mNe-gKO_JO2V3alorDOSGaR_Q&usqp=CAU"
-              alt=""
-              className="sidebarFriendImg"
-            />
-            <span className="sidebarFriendName">Janit</span>
-          </li>
-          <li className="sidebarFriend">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN7njwJYxu4mNe-gKO_JO2V3alorDOSGaR_Q&usqp=CAU"
-              alt=""
-              className="sidebarFriendImg"
-            />
-            <span className="sidebarFriendName">Janit</span>
-          </li>
+          {Users.map((u) => (
+            <CloseFriend key={u.id} user={u} />
+          ))}
         </ul>
       </div>
     </div>
