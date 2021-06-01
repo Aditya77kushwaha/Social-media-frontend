@@ -3,9 +3,9 @@
 }
 
 .profileRight {
-  overflow-y: auto;
-  height: calc(100vh - 50px);
   flex: 9;
+  overflow-y: scroll;
+  height: calc(100vh - 50px);
 }
 
 .profileCover {
