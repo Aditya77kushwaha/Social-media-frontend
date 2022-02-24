@@ -1,7 +1,9 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import "./register.css";
 import { useHistory } from "react-router";
+import { AuthContext } from "../../context/AuthContext";
+import { CircularProgress } from "@material-ui/core";
 
 export default function Register() {
   const username = useRef();
@@ -9,6 +11,7 @@ export default function Register() {
   const password = useRef();
   const passwordAgain = useRef();
   const history = useHistory();
+  const { isFetching, dispatch } = useContext(AuthContext);
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -25,6 +28,7 @@ export default function Register() {
         history.push("/login");
       } catch (err) {
         console.log(err);
+        passwordAgain.current.setCustomValidity("Some error occured");
       }
     }
   };
@@ -69,9 +73,24 @@ export default function Register() {
               type="password"
             />
             <button className="loginButton" type="submit">
-              Sign Up
+              {isFetching ? (
+                <CircularProgress color="white" size="20px" />
+              ) : (
+                "Sign up"
+              )}
             </button>
-            <button className="loginRegisterButton">Log into Account</button>
+            <button
+              className="loginRegisterButton"
+              onClick={() => {
+                history.push("/login");
+              }}
+            >
+              {isFetching ? (
+                <CircularProgress color="white" size="20px" />
+              ) : (
+                "Log into Account"
+              )}
+            </button>
           </form>
         </div>
       </div>
