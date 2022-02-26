@@ -91,7 +91,11 @@ export default function Share() {
               <span className="shareOptionText">Feelings</span>
             </div>
           </div>
-          <button className="shareButton" type="submit">
+          <button
+            className="shareButton"
+            type="submit"
+            disabled={!desc?.current?.value && !file}
+          >
             Share
           </button>
         </form>
