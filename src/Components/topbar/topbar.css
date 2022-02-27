@@ -32,6 +32,7 @@
   border-radius: 30px;
   display: flex;
   align-items: center;
+  position: sticky;
 }
 
 .searchIcon {
@@ -95,8 +96,42 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 768px)  {
-  .topbarLink{
+@media screen and (max-width: 768px) {
+  .topbarLink {
     display: none;
   }
+}
+
+.results {
+  display: flex;
+  align-items: center;
+  top: 0;
+  z-index: 9999;
+}
+
+.searchLeft {
+  flex: 3;
+}
+
+.searchResult {
+  width: 100%;
+  height: auto;
+  /* flex: 5; */
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 5px 50%; */
+}
+
+.searchResultText {
+  padding: 2px;
+  font-size: large;
+  font-weight: 300;
+  text-decoration: none;
+  color: black;
+}
+
+.searchRight {
+  flex: 4;
 }

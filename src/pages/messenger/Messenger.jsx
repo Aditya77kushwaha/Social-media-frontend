@@ -23,7 +23,7 @@ export default function Messenger() {
     socket.current = io("wss://socialmedia-chat.herokuapp.com/");
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
-        sender: data.senderId,
+        sender: data.senderId, // add receiver also
         text: data.text,
         createdAt: Date.now(),
       });
@@ -33,7 +33,7 @@ export default function Messenger() {
   useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
-      setMessages((prev) => [...prev, arrivalMessage]);
+      setMessages((prev) => [...prev, arrivalMessage]); // also setMessage when receiver sends message
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
@@ -108,7 +108,12 @@ export default function Messenger() {
           <div className="chatMenuWrapper">
             <input placeholder="Search for friends" className="chatMenuInput" />
             {conversations.map((c) => (
-              <div onClick={() => setCurrentChat(c)}>
+              <div
+                onClick={() => {
+                  setCurrentChat(c);
+                  console.log(onlineUsers);
+                }}
+              >
                 <Conversation conversation={c} currentUser={user} />
               </div>
             ))}
