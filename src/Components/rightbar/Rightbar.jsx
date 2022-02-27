@@ -39,10 +39,13 @@ export default function Rightbar({ user }) {
           userId: currentUser._id,
         });
         dispatch({ type: "FOLLOW", payload: user._id });
+        await axios.post("/conversations/", {
+          senderId: currentUser._id,
+          receiverId: user._id,
+        });
       }
       setFollowed(!followed);
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   const HomeRightbar = () => {
