@@ -20,9 +20,15 @@ export default function Topbar() {
   const [result, setresult] = useState("");
 
   const getResult = async () => {
-    const res = await axios.get(`/users/?username=${query}`);
-    setresult(res.data);
-    console.log("result", result);
+    await axios
+      .get(`/users/?username=${query}`)
+      .then((res) => {
+        setresult(res.data);
+      })
+      .catch((err) => {
+        setresult("user not found");
+        console.log("result", err);
+      });
   };
   return (
     <>
@@ -37,6 +43,7 @@ export default function Topbar() {
             <Search
               className="searchIcon"
               onClick={() => {
+                setresult("");
                 getResult();
               }}
             />
@@ -99,14 +106,17 @@ export default function Topbar() {
         <div className="searchLeft"></div>
         <div className="topbarCenter">
           <div className="searchResult">
-            {result && (
-              <Link
-                className="searchResultText"
-                to={`/profile/${result.username}`}
-              >
-                <p>{result.username}</p>
-              </Link>
-            )}
+            {result &&
+              (result.username ? (
+                <Link
+                  className="searchResultText"
+                  to={`/profile/${result.username}`}
+                >
+                  <p>{result.username}</p>
+                </Link>
+              ) : (
+                <p>{result}</p>
+              ))}
           </div>
         </div>
         <div className="searchRight"></div>
