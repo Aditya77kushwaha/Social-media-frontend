@@ -1,5 +1,11 @@
 import "./topbar.css";
-import { Search, Person, Chat, Notifications } from "@material-ui/icons";
+import {
+  Search,
+  Person,
+  Chat,
+  Notifications,
+  ExitToAppOutlined,
+} from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
@@ -7,7 +13,7 @@ import { useHistory } from "react-router";
 import axios from "axios";
 
 export default function Topbar() {
-  const { user } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const history = useHistory();
   const [query, setquery] = useState("");
@@ -66,6 +72,14 @@ export default function Topbar() {
             <div className="topbarIconItem">
               <Notifications />
               <span className="topbarIconBadge">1</span>
+            </div>
+            <div className="topbarIconItem">
+              <ExitToAppOutlined
+                onClick={() => {
+                  // localStorage.clear();
+                  dispatch({ type: "LOGOUT", payload: user });
+                }}
+              />
             </div>
           </div>
           <Link to={`/profile/${user.username}`}>
