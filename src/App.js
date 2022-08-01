@@ -11,6 +11,9 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import Messenger from "./pages/messenger/Messenger";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 function App() {
   const { user } = useContext(AuthContext);
