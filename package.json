@@ -42,5 +42,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://social-media-backend-production-498c.up.railway.app/api"
+  "proxy": "https://social-media-backend-production-498c.up.railway.app/api/"
 }
