@@ -19,7 +19,9 @@ export default function Message({ message, own }) {
           }
           alt=""
         />
-        <p className="messageText">{message.text}</p>
+        <p className="messageText">{message.text}
+        {/* <small>{user._id}</small> */}
+        </p>
       </div>
       <div className="messageBottom">{format(message.createdAt)}</div>
     </div>

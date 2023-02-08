@@ -11,6 +11,18 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useHistory } from "react-router";
 import axios from "axios";
+import Modal from "react-modal";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 export default function Topbar() {
   const { user, dispatch } = useContext(AuthContext);
@@ -18,7 +30,7 @@ export default function Topbar() {
   const history = useHistory();
   const [query, setquery] = useState("");
   const [result, setresult] = useState("");
-
+  
   const getResult = async () => {
     await axios
       .get(`/users/?username=${query}`)
@@ -30,6 +42,21 @@ export default function Topbar() {
         console.log("result", err);
       });
   };
+  
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    subtitle.style.color = "#f00";
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
   return (
     <>
       <div className="topbarContainer">
@@ -76,7 +103,12 @@ export default function Topbar() {
               <Chat />
               <span className="topbarIconBadge">2</span>
             </div>
-            <div className="topbarIconItem">
+            <div
+              className="topbarIconItem"
+              onClick={() => {
+                !modalIsOpen ? openModal() : closeModal();
+              }}
+            >
               <Notifications />
               <span className="topbarIconBadge">1</span>
             </div>
@@ -121,6 +153,18 @@ export default function Topbar() {
         </div>
         <div className="searchRight"></div>
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        contentLabel="Example Modal"
+        openModal={openModal}
+        style={customStyles}
+      >
+        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
+        <button onClick={closeModal}>close</button>
+        <div>I am a modal</div>
+      </Modal>
     </>
   );
 }
