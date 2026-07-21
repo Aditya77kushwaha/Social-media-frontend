@@ -7,18 +7,20 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { Add, Remove } from "@material-ui/icons";
 
+const API = process.env.REACT_APP_API || "http://localhost:8800/api/";
+
 export default function Rightbar({ user }) {
-  const PF = "http://localhost:8800/images/";
+  const PF = "https://social-media-backend-b2rs.onrender.com/images/";
   const [friends, setFriends] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [followed, setFollowed] = useState(
-    currentUser.followings?.includes(user?.id)
+    currentUser.followings?.includes(user?.id),
   );
 
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const friendList = await axios.get("/users/friends/" + user._id);
+        const friendList = await axios.get(`${API}/users/friends/${user._id}`);
         setFriends(friendList.data);
       } catch (err) {
         console.log(err);
@@ -30,16 +32,16 @@ export default function Rightbar({ user }) {
   const handleClick = async () => {
     try {
       if (followed) {
-        await axios.put(`/users/${user._id}/unfollow`, {
+        await axios.put(`${API}/users/${user._id}/unfollow`, {
           userId: currentUser._id,
         });
         dispatch({ type: "UNFOLLOW", payload: user._id });
       } else {
-        await axios.put(`/users/${user._id}/follow`, {
+        await axios.put(`${API}/users/${user._id}/follow`, {
           userId: currentUser._id,
         });
         dispatch({ type: "FOLLOW", payload: user._id });
-        await axios.post("/conversations/", {
+        await axios.post(`${API}/conversations/`, {
           senderId: currentUser._id,
           receiverId: user._id,
         });
@@ -93,8 +95,8 @@ export default function Rightbar({ user }) {
               {user.relationship === 1
                 ? "Single"
                 : user.relationship === 1
-                ? "Married"
-                : "-"}
+                  ? "Married"
+                  : "-"}
             </span>
           </div>
         </div>

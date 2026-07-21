@@ -2,16 +2,18 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./conversation.css";
 
+const API = process.env.REACT_APP_API || "http://localhost:8800/api/";
+
 export default function Conversation({ conversation, currentUser }) {
   const [user, setUser] = useState(null);
-  const PF = "http://localhost:8800/images/";
+  const PF = "https://social-media-backend-b2rs.onrender.com/images/";
 
   useEffect(() => {
     const friendId = conversation.members.find((m) => m !== currentUser._id);
 
     const getUser = async () => {
       try {
-        const res = await axios("/users?userId=" + friendId);
+        const res = await axios.get(`${API}/users?userId=${friendId}`);
         setUser(res.data);
       } catch (err) {
         console.log(err);

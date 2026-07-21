@@ -10,9 +10,11 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
+const API = process.env.REACT_APP_API || "http://localhost:8800/api/";
+
 export default function Share() {
   const { user } = useContext(AuthContext);
-  const PF = "http://localhost:8800/images/";
+  const PF = "https://social-media-backend-b2rs.onrender.com/images/";
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
 
@@ -30,11 +32,11 @@ export default function Share() {
       newPost.img = fileName;
       console.log(newPost);
       try {
-        await axios.post("/upload", data);
+        await axios.post(`${API}/upload`, data);
       } catch (err) {}
     }
     try {
-      await axios.post("/posts", newPost);
+      await axios.post(`${API}/posts`, newPost);
       window.location.reload();
     } catch (err) {}
   };

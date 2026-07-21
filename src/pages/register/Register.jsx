@@ -5,6 +5,8 @@ import { useHistory } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 import { CircularProgress } from "@material-ui/core";
 
+const API = process.env.REACT_APP_API || "http://localhost:8800/api/";
+
 export default function Register() {
   const username = useRef();
   const email = useRef();
@@ -24,7 +26,7 @@ export default function Register() {
         password: password.current.value,
       };
       try {
-        await axios.post("/auth/register", user);
+        await axios.post(`${API}/auth/register`, user);
         history.push("/login");
       } catch (err) {
         console.log(err);

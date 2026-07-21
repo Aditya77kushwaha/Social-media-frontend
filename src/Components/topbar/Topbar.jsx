@@ -13,6 +13,8 @@ import { useHistory } from "react-router";
 import axios from "axios";
 import Modal from "react-modal";
 
+const API = process.env.REACT_APP_API || "http://localhost:8800/api/";
+
 export default function Topbar() {
   const customStyles = {
     content: {
@@ -25,14 +27,14 @@ export default function Topbar() {
     },
   };
   const { user, dispatch } = useContext(AuthContext);
-  const PF = "http://localhost:8800/images/";
+  const PF = "https://social-media-backend-b2rs.onrender.com/images/";
   const history = useHistory();
   const [query, setquery] = useState("");
   const [result, setresult] = useState("");
 
   const getResult = async () => {
     await axios
-      .get(`/users/?username=${query}`)
+      .get(`${API}/users/?username=${query}`)
       .then((res) => {
         setresult(res.data);
       })

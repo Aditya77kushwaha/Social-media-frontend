@@ -8,6 +8,8 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { io } from "socket.io-client";
 
+const API = process.env.REACT_APP_API || "http://localhost:8800/api/";
+
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
@@ -40,7 +42,7 @@ export default function Messenger() {
     socket.current.emit("addUser", user._id);
     socket.current.on("getUsers", (users) => {
       setOnlineUsers(
-        user.followings.filter((f) => users.some((u) => u.userId === f))
+        user.followings.filter((f) => users.some((u) => u.userId === f)),
       );
     });
   }, [user]);
@@ -48,7 +50,7 @@ export default function Messenger() {
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await axios.get("/conversations/" + user._id);
+        const res = await axios.get(`${API}/conversations/${user._id}`);
         setConversations(res.data);
       } catch (err) {
         console.log(err);
@@ -60,7 +62,7 @@ export default function Messenger() {
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const res = await axios.get("/messages/" + currentChat?._id);
+        const res = await axios.get(`${API}/messages/${currentChat?._id}`);
         setMessages(res.data);
       } catch (err) {
         console.log(err);
@@ -78,7 +80,7 @@ export default function Messenger() {
     };
 
     const receiverId = currentChat.members.find(
-      (member) => member !== user._id
+      (member) => member !== user._id,
     );
 
     socket.current.emit("sendMessage", {
@@ -88,7 +90,7 @@ export default function Messenger() {
     });
 
     try {
-      const res = await axios.post("/messages", message);
+      const res = await axios.post(`${API}/messages`, message);
       setMessages([...messages, res.data]);
       setNewMessage("");
     } catch (err) {

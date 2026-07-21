@@ -19,18 +19,20 @@ const customStyles = {
   },
 };
 
+const API = process.env.REACT_APP_API || "http://localhost:8800/api/";
+
 export default function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
   const [userLiked, setUserLiked] = useState([]);
-  const PF = "http://localhost:8800/images/";
+  const PF = "https://social-media-backend-b2rs.onrender.com/images/";
   const { user: currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     setIsLiked(post.likes.includes(currentUser._id));
     post.likes.map(async (x) => {
-      await axios.get(`/users?userId=${x}`).then((res) => {
+      await axios.get(`${API}/users?userId=${x}`).then((res) => {
         setUserLiked((prev) => [
           ...prev,
           [res?.data?.username, res?.data?.profilePicture],
@@ -41,7 +43,7 @@ export default function Post({ post }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`/users?userId=${post.userId}`);
+      const res = await axios.get(`${API}/users?userId=${post.userId}`);
       setUser(res.data);
     };
     fetchUser();
@@ -49,7 +51,7 @@ export default function Post({ post }) {
 
   const likeHandler = () => {
     try {
-      axios.put("/posts/" + post._id + "/like", { userId: currentUser._id });
+      axios.put(`${API}/posts/${post._id}/like`, { userId: currentUser._id });
     } catch (err) {}
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);

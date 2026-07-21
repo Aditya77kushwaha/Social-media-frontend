@@ -7,8 +7,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 
+const API = process.env.REACT_APP_API || "http://localhost:8800/api/";
+
 export default function Profile() {
-  const PF = "http://localhost:8800/images/";
+  const PF = "https://social-media-backend-b2rs.onrender.com/images/";
   const [user, setUser] = useState({});
   const [coverfile, setcoverFile] = useState(null);
   const [profilefile, setprofileFile] = useState(null);
@@ -26,11 +28,11 @@ export default function Profile() {
       data.append("file", coverfile);
       updateUser.coverPicture = fileName;
       try {
-        await axios.post("/upload", data);
+        await axios.post(`${API}/upload`, data);
       } catch (err) {}
     }
     try {
-      await axios.put(`/users/${user._id}`, updateUser);
+      await axios.put(`${API}/users/${user._id}`, updateUser);
       window.location.reload();
     } catch (err) {}
   };
@@ -46,17 +48,17 @@ export default function Profile() {
       data.append("file", profilefile);
       updateUser.profilePicture = fileName;
       try {
-        await axios.post("/upload", data);
+        await axios.post(`${API}/upload`, data);
       } catch (err) {}
     }
     try {
-      await axios.put(`/users/${user._id}`, updateUser);
+      await axios.put(`${API}/users/${user._id}`, updateUser);
       window.location.reload();
     } catch (err) {}
   };
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`/users?username=${username}`);
+      const res = await axios.get(`${API}/users?username=${username}`);
       setUser(res.data);
     };
     fetchUser();
