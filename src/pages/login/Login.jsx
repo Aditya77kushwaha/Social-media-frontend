@@ -10,7 +10,7 @@ export default function Login() {
   const password = useRef();
   const { isFetching, dispatch } = useContext(AuthContext);
   const history = useHistory();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage] = useState("");
 
   const handleClick = (e) => {
     e.preventDefault();
