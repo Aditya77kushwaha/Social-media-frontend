@@ -5,8 +5,12 @@ export const loginCall = async (userCredential, dispatch) => {
   try {
     const res = await axios.post("/auth/login", userCredential);
     dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-  } catch (err) {
-    dispatch({ type: "LOGIN_FAILURE", payload: err });
+  } catch (error) {
+    dispatch({ type: "LOGIN_FAILURE", payload: error });
+    // if (error.response && error.response.status === 401) {
+    //   setErrorMessage(error.response.data.error);
+    // } else {
+    //   console.error("Error from server :", error.message);
+    // }
   }
 };
-

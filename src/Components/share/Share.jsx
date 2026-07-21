@@ -6,21 +6,21 @@ import {
   EmojiEmotions,
   Cancel,
 } from "@material-ui/icons";
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
 export default function Share() {
   const { user } = useContext(AuthContext);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  const desc = useRef();
+  const PF = "http://localhost:8800/images/";
+  const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const newPost = {
       userId: user._id,
-      desc: desc.current.value,
+      desc,
     };
     if (file) {
       const data = new FormData();
@@ -53,9 +53,10 @@ export default function Share() {
             alt=""
           />
           <input
-            placeholder={"What's in your mind " + user.username + "?"}
             className="shareInput"
-            ref={desc}
+            placeholder={`What's in your mind ${user.username}?`}
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
           />
         </div>
         <hr className="shareHr" />
@@ -94,7 +95,7 @@ export default function Share() {
           <button
             className="shareButton"
             type="submit"
-            disabled={!desc?.current?.value && !file}
+            disabled={!desc && !file}
           >
             Share
           </button>

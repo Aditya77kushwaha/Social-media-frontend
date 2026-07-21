@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import "./login.css";
 import { loginCall } from "../../apiCalls";
 import { AuthContext } from "../../context/AuthContext";
@@ -10,11 +10,15 @@ export default function Login() {
   const password = useRef();
   const { isFetching, dispatch } = useContext(AuthContext);
   const history = useHistory();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleClick = (e) => {
     e.preventDefault();
     loginCall(
-      { email: email.current.value, password: password.current.value },
+      {
+        email: email.current.value,
+        password: password.current.value,
+      },
       dispatch
     );
   };
@@ -30,6 +34,9 @@ export default function Login() {
         </div>
         <div className="loginRight">
           <form className="loginBox" onSubmit={handleClick}>
+            {errorMessage && (
+              <div className="error-message">{errorMessage}</div>
+            )}
             <input
               placeholder="Email"
               type="email"

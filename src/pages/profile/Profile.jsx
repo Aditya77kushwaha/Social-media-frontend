@@ -8,7 +8,7 @@ import axios from "axios";
 import { useParams } from "react-router";
 
 export default function Profile() {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PF = "http://localhost:8800/images/";
   const [user, setUser] = useState({});
   const [coverfile, setcoverFile] = useState(null);
   const [profilefile, setprofileFile] = useState(null);
@@ -96,7 +96,10 @@ export default function Profile() {
                       type="file"
                       id="file"
                       accept=".png,.jpeg,.jpg"
-                      onChange={(e) => setcoverFile(e.target.files[0])}
+                      onChange={(e) => {
+                        setcoverFile(e.target.files[0]);
+                        console.log(PF);
+                      }}
                     />
                   </label>
                 </div>

@@ -13,24 +13,23 @@ import { useHistory } from "react-router";
 import axios from "axios";
 import Modal from "react-modal";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
-
 export default function Topbar() {
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
   const { user, dispatch } = useContext(AuthContext);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PF = "http://localhost:8800/images/";
   const history = useHistory();
   const [query, setquery] = useState("");
   const [result, setresult] = useState("");
-  
+
   const getResult = async () => {
     await axios
       .get(`/users/?username=${query}`)
@@ -42,7 +41,7 @@ export default function Topbar() {
         console.log("result", err);
       });
   };
-  
+
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -117,6 +116,7 @@ export default function Topbar() {
                 onClick={() => {
                   // localStorage.clear();
                   dispatch({ type: "LOGOUT", payload: user });
+                  history.push("/");
                 }}
               />
             </div>

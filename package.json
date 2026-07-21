@@ -16,6 +16,7 @@
     "react-scripts": "4.0.3",
     "socket.io-client": "^4.0.1",
     "timeago.js": "^4.0.2",
+    "dotenv": "^8.2.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -42,5 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://social-media-backend-production-498c.up.railway.app/api/"
+  "proxy": "http://localhost:8800/api/"
 }

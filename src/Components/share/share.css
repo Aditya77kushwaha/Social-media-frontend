@@ -12,6 +12,7 @@
 .shareTop {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .shareProfileImg {
@@ -19,16 +20,20 @@
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 10px;
 }
 
 .shareInput {
   border: none;
-  width: 80%;
+  outline: none;
+  width: 100%;
+  font-size: 18px;
+  padding: 8px 0;
+  background: transparent;
 }
 
 .shareInput:focus {
   outline: none;
+  border: none;
 }
 
 .shareHr {

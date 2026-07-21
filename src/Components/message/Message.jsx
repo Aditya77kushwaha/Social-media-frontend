@@ -5,7 +5,7 @@ import { useContext } from "react";
 
 export default function Message({ message, own }) {
   const { user } = useContext(AuthContext);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PF = "http://localhost:8800/images/";
 
   return (
     <div className={own ? "message own" : "message"}>
@@ -19,8 +19,9 @@ export default function Message({ message, own }) {
           }
           alt=""
         />
-        <p className="messageText">{message.text}
-        {/* <small>{user._id}</small> */}
+        <p className="messageText">
+          {message.text}
+          {/* <small>{user._id}</small> */}
         </p>
       </div>
       <div className="messageBottom">{format(message.createdAt)}</div>
